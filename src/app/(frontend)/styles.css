@@ -1162,3 +1162,11 @@ html[lang='th'] .statement h2 {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+/* Thai has no capitals and its vowels/tone marks must stay attached: no wide tracking. */
+html[lang='th'] .eyebrow,
+html[lang='th'] .footer h3,
+html[lang='th'] .card-glyph {
+  letter-spacing: 0.02em;
+  font-size: 14px;
+}
