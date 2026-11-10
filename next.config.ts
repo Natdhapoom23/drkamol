@@ -8,7 +8,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url))
 const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
-    localPatterns: [{ pathname: '/api/media/file/**' }],
+    localPatterns: [{ pathname: '/api/media/file/**' }, { pathname: '/images/**' }],
     remotePatterns: [
       { protocol: 'https', hostname: 'i.ytimg.com' },
       { protocol: 'https', hostname: '*.public.blob.vercel-storage.com' },

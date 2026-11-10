@@ -315,15 +315,28 @@ html[lang='th'] .h2 {
   object-fit: cover;
   object-position: center 25%;
 }
-.hero-portrait {
+.hero-photo {
   position: absolute;
-  right: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
-  top: 10%;
-  width: min(36vw, 440px);
-  aspect-ratio: 3 / 4;
-  border-radius: 220px 220px 28px 28px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: min(64%, 960px);
   overflow: hidden;
-  border: 1px solid var(--line);
+  /* Fade the photo into the page on the left (behind the headline) and at the bottom. */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 42%), linear-gradient(to top, transparent 0%, #000 32%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent 0%, #000 42%), linear-gradient(to top, transparent 0%, #000 32%);
+  mask-composite: intersect;
+}
+.hero-photo-in {
+  position: absolute;
+  inset: -8% 0;
+  will-change: transform;
+}
+.hero-photo img {
+  object-fit: cover;
+  object-position: 55% 18%;
+  filter: brightness(0.86) saturate(0.92);
 }
 .hero-arch {
   position: absolute;
@@ -358,16 +371,19 @@ html[lang='th'] .h2 {
   gap: 12px;
 }
 @media (max-width: 760px) {
-  .hero-portrait {
+  .hero-photo {
     position: relative;
-    right: auto;
-    top: auto;
-    width: 70%;
-    margin: 0 auto -40px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    margin-bottom: -14vw;
+    -webkit-mask-image: linear-gradient(to top, transparent 4%, #000 52%);
+    mask-image: linear-gradient(to top, transparent 4%, #000 52%);
+  }
+  .hero-photo img {
+    object-position: 50% 10%;
   }
   .hero {
     flex-direction: column;
-    padding-top: 96px;
   }
   .hero-content {
     padding-top: 40px;

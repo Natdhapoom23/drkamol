@@ -35,13 +35,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className="section" style={{ paddingTop: 40 }}>
         <div className="wrap split">
           <div>
-            {portrait?.url ? (
-              <div style={{ position: 'relative', aspectRatio: '3 / 4', borderRadius: 'var(--radius)', overflow: 'hidden' }}>
-                <Image src={portrait.sizes?.card?.url || portrait.url} alt={portrait.alt || p.name} fill sizes="(max-width: 900px) 100vw, 420px" style={{ objectFit: 'cover' }} />
-              </div>
-            ) : (
-              <div className="tone-1" style={{ aspectRatio: '3 / 4', borderRadius: '220px 220px 28px 28px', border: '1px solid var(--line)' }} aria-hidden="true" />
-            )}
+            <div style={{ position: 'relative', aspectRatio: '3 / 4', borderRadius: 'var(--radius)', overflow: 'hidden' }}>
+              <Image
+                src={portrait?.url || '/images/dr-kamol-hero.jpg'}
+                alt={portrait?.alt || p.name}
+                fill
+                sizes="(max-width: 900px) 100vw, 420px"
+                style={{ objectFit: 'cover', objectPosition: '55% 20%' }}
+              />
+            </div>
           </div>
           <div className="prose">
             {paras(p.bio).map((x, i) => (

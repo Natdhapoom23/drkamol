@@ -13,6 +13,9 @@ import { youTubeThumb } from '@/lib/youtube'
 
 export const revalidate = 3600
 
+/** Shown until a portrait is uploaded in the CMS. */
+const DEFAULT_PORTRAIT = '/images/dr-kamol-hero.jpg'
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   if (!isLocale(locale)) return {}
@@ -59,7 +62,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     url: siteUrl,
     medicalSpecialty: ['PlasticSurgery'],
     description: profile.intro,
-    image: portrait?.url ? `${siteUrl}${portrait.url}` : undefined,
+    image: portrait?.url ? new URL(portrait.url, siteUrl).toString() : `${siteUrl}${DEFAULT_PORTRAIT}`,
     alumniOf: [{ '@type': 'CollegeOrUniversity', name: 'Khon Kaen University' }, { '@type': 'CollegeOrUniversity', name: 'Chulalongkorn University' }],
     worksFor: { '@type': 'Hospital', name: settings.hospitalName || 'Kamol Cosmetic Hospital', url: settings.hospitalUrl || undefined },
     address: { '@type': 'PostalAddress', addressLocality: 'Bangkok', addressCountry: 'TH' },
@@ -80,20 +83,18 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <div className="hero-orb" />
           )}
         </div>
-        {portrait?.url ? (
-          <div className="hero-portrait" data-parallax="0.12">
+        {/* Large portrait on the right, fading into the black page. Replaceable in the CMS (Profile → Portrait). */}
+        <div className="hero-photo">
+          <div className="hero-photo-in" data-parallax="0.12">
             <Image
-              src={portrait.sizes?.card?.url || portrait.url}
-              alt={portrait.alt || profile.name}
+              src={portrait?.url || DEFAULT_PORTRAIT}
+              alt={portrait?.alt || profile.name}
               fill
               priority
-              sizes="(max-width: 760px) 70vw, 440px"
-              style={{ objectFit: 'cover' }}
+              sizes="(max-width: 760px) 100vw, 60vw"
             />
           </div>
-        ) : (
-          <div className="hero-arch" data-parallax="0.15" aria-hidden="true" />
-        )}
+        </div>
         <div className="hero-fade" />
         <div className="wrap hero-content">
           <p className="eyebrow">{profile.name}</p>
